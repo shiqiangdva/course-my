@@ -12,7 +12,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 @SpringBootApplication
 @EnableEurekaClient
 @ComponentScan("com.course")
-@MapperScan("com.course.system.mapper")
+@MapperScan("com.course.server.mapper")
 public class SystemApplication {
 
 //	public static void main(String[] args) {
