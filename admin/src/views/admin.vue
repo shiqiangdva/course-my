@@ -975,7 +975,14 @@
 </template>
 
 <script>
+    export default {
+        name: 'admin',
+        mounted: () => {
+            $('body').removeClass('login-layout light-login');
+            $('body').attr('class', 'no-skin');
+        },
+        methods: {
 
-    $('body').removeClass('login-layout light-login');
-    $('body').attr('class', 'no-skin');
+        }
+    }
 </script>
