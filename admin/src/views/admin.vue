@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="navbar" class="navbar navbar-default          ace-save-state">
+        <div id="navbar" class="navbar navbar-default ace-save-state">
             <div class="navbar-container ace-save-state" id="navbar-container">
                 <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
                     <span class="sr-only">Toggle sidebar</span>
@@ -320,7 +320,7 @@
         </div>
 
         <div class="main-container ace-save-state" id="main-container">
-            <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
+            <div id="sidebar" class="sidebar responsive ace-save-state">
 
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
@@ -354,7 +354,7 @@
 
                 <ul class="nav nav-list">
                     <li class="" id="welcome-sidebar">
-                        <router-link to="/admin/welcome">
+                        <router-link to="/welcome">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> 欢迎 </span>
                         </router-link>
@@ -405,7 +405,7 @@
 
                         <ul class="submenu">
                             <li class="active" id="business-chapter-sidebar">
-                                <router-link to="/admin/business/chapter">
+                                <router-link to="/business/chapter">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     大章管理
                                 </router-link>
@@ -477,6 +477,19 @@
             $("body").removeClass("login-layout light-login");
             $("body").attr("class", "no-skin");
             // console.log("admin");
+            this.activeSidebar(this.$route.name.replace('/', '-') + '-sidebar');
+        },
+        // vue内置的watch, 用来监听vue实例上的数据变化, $route也是一个变量
+        watch: {
+            $route: {
+                handler: function (val, oldVal) {
+                    console.log("---->页面跳转:", val, oldVal);
+                    let _this = this;
+                    _this.$nextTick(function () {// 页面加载完成后执行
+                        _this.activeSidebar(_this.$route.name.replace('/', '-') + '-sidebar');
+                    })
+                }
+            }
         },
         methods: {
             login () {
