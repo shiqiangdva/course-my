@@ -101,23 +101,31 @@
             _this.list(1);
         },
         methods: {
+            /**
+             * 点击【新增】
+             */
             add() {
                 let _this = this;
                 _this.chapter = {};
                 $("#form-modal").modal("show");
             },
+            /**
+             * 点击【编辑】
+             */
             edit(chapter) {
                 let _this = this;
                 _this.chapter = $.extend({}, chapter);
                 $("#form-modal").modal("show");
             },
+            /**
+             * 点击【删除】
+             */
             del(id) {
                 let _this = this;
                 Confirm.show("删除大章后不可恢复，确认删除？", function () {
                     Loading.show();
                     _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then((response)=>{
                         Loading.hide();
-                        console.log("删除大章列表结果：", response);
                         let resp = response.data;
                         if (resp.success) {
                             _this.list(1);
@@ -126,6 +134,9 @@
                     })
                 });
             },
+            /**
+             * 点击【保存】
+             */
             save() {
                 let _this = this;
 
@@ -135,7 +146,6 @@
                     || !Validator.length(_this.chapter.courseId, "课程ID", 1, 8)) {
                     return;
                 }
-
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save', _this.chapter).then((res) => {
                     console.log("新增保存大章结果: ", res);
                     let resDto = res.data;
@@ -148,6 +158,9 @@
                     }
                 })
             },
+            /**
+             * 列表查询
+             */
             list(page) {
                 let _this = this;
                 Loading.show();
@@ -155,7 +168,6 @@
                     page: page,
                     size: _this.$refs.pagination.size
                 }).then((res) => {
-                    console.log("查询大章列表结果: ", res);
                     Loading.hide();
                     let resDto = res.data;
                     _this.chapters = resDto.content.list;
