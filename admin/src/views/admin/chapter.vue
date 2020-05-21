@@ -149,11 +149,13 @@
             },
             list(page) {
                 let _this = this;
+                Loading.show();
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list', {
                     page: page,
                     size: _this.$refs.pagination.size
                 }).then((res) => {
                     console.log("查询大章列表结果: ", res);
+                    Loading.hide();
                     let resDto = res.data;
                     _this.chapters = resDto.content.list;
                     _this.$refs.pagination.render(page, resDto.content.total);
