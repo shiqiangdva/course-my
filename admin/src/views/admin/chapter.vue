@@ -124,7 +124,7 @@
                 let _this = this;
                 Confirm.show("删除大章后不可恢复，确认删除？", function () {
                     Loading.show();
-                    _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then((response)=>{
+                    _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/chapter/delete/' + id).then((response)=>{
                         Loading.hide();
                         let resp = response.data;
                         if (resp.success) {
@@ -146,7 +146,7 @@
                     || !Validator.length(_this.chapter.courseId, "课程ID", 1, 8)) {
                     return;
                 }
-                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save', _this.chapter).then((res) => {
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/save', _this.chapter).then((res) => {
                     console.log("新增保存大章结果: ", res);
                     let resDto = res.data;
                     if (resDto.success) {
@@ -164,7 +164,7 @@
             list(page) {
                 let _this = this;
                 Loading.show();
-                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list', {
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/list', {
                     page: page,
                     size: _this.$refs.pagination.size
                 }).then((res) => {
