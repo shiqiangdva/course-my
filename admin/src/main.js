@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './app.vue'
 import router from './router';
 import axios from 'axios';
+import filter from './filter/filter';
+
 
 Vue.config.productionTip = false;
 // Vue.prototype.xxx 可以理解为Vue组件的全局变量,
@@ -20,6 +22,10 @@ axios.interceptors.response.use(function (response) {
   return response;
 }, error => {});
 
+// 全局过滤器
+Object.keys(filter).forEach(key => {
+  Vue.filter(key, filter[key])
+});
 
 new Vue({
   router,
