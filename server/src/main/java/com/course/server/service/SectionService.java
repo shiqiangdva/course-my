@@ -14,6 +14,8 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Date;
+
 
 /**
  * @Author V丶x
@@ -34,6 +36,8 @@ public class SectionService {
         // 插件分页语句规则: 调用startPage方法之后, 执行的第一个select语句会进行分页
         PageHelper.startPage(pageDto.getPage(), pageDto.getSize());
         SectionExample sectionExample = new SectionExample();
+        sectionExample.setOrderByClause("sort asc");
+
         List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
 
         PageInfo<Section> pageInfo = new PageInfo<>(sectionList);
@@ -70,6 +74,10 @@ public class SectionService {
      * @param section
      */
     private void insert(Section section) {
+        Date now = new Date();
+        section.setCreatedAt(now);
+        section.setUpdatedAt(now);
+
         String shortUuid = UuidUtil.getShortUuid();
         section.setId(shortUuid);
         sectionMapper.insert(section);
@@ -81,6 +89,7 @@ public class SectionService {
      */
     private void update(Section section) {
         sectionMapper.updateByPrimaryKey(section);
+        section.setUpdatedAt(new Date());
     }
 
 }
